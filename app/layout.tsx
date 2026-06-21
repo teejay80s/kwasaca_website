@@ -4,11 +4,17 @@ import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Chatbot from '@/components/layout/Chatbot'
 import { createClient } from '@/utils/supabase/server'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   title: { default: 'KWASACA — Kwara State Agency for Control of AIDS', template: '%s | KWASACA' },
   description: 'The official website of the Kwara State Agency for Control of AIDS (KWASACA). HIV prevention, treatment, research and community support across all 16 LGAs of Kwara State, Nigeria.',
   keywords: ['HIV', 'AIDS', 'Kwara State', 'KWASACA', 'Nigeria', 'HIV Testing', 'ART', 'PMTCT'],
+  icons: {
+    icon: '/kwasaca-logo.png',
+    shortcut: '/kwasaca-logo.png',
+    apple: '/kwasaca-logo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_NG',
@@ -28,6 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main>{children}</main>
         <Footer />
         <Chatbot />
+        <Analytics />
       </body>
     </html>
   )
