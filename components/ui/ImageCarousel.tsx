@@ -2,10 +2,10 @@
 import { useState, useEffect } from 'react'
 
 const images = [
-  { src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&q=85', alt: 'Community outreach in rural Nigeria' },
-  { src: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=85', alt: 'Women support group gathering' },
-  { src: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=85', alt: 'Children in community program' },
-  { src: 'https://images.unsplash.com/photo-1516627145497-ae6968895b40?w=800&q=85', alt: 'Mother and child at health outreach' },
+  { src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&q=85', alt: 'Community outreach in Kwara State' },
+  { src: 'https://images.unsplash.com/photo-1684607633138-6cc13613369b?w=800&q=85', alt: 'Health consultation at KWASACA clinic' },
+  { src: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=85', alt: 'Children at community health program' },
+  { src: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=85', alt: 'Mother and child health services' },
 ]
 
 export default function ImageCarousel() {

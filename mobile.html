@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>KWASACA — Kwara State Agency for Control of AIDS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #071a0e;
+  --surface: #0a2212;
+  --fg: #f0f0e8;
+  --muted: #8a9a8a;
+  --border: rgba(255,255,255,0.06);
+  --accent: #dc2626;
+  --accent-soft: rgba(220,38,38,0.15);
+  --green-light: #166534;
+  --green-base: #15803d;
+  --green-pale: rgba(21,128,61,0.08);
+  --gold: #d4a853;
+  --cream: #f5f0e8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', -apple-system, system-ui, sans-serif;
+  --safe-top: env(safe-area-inset-top, 20px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: #050f09;
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+.mobile-frame {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+/* Status bar */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.7);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.status-bar .time { font-weight: 700; }
+.status-icons { display: flex; gap: 5px; align-items: center; }
+.status-icons svg { width: 14px; height: 14px; }
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  padding: 0 20px;
+  background: rgba(7,26,14,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.header .logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+.header .logo-text {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.2;
+}
+.header .logo-text small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.header-actions button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  font-size: 16px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+.header-actions button:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+/* Sections */
+section { padding: 0 20px; }
+.section-spacer { height: 8px; }
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 1.5px;
+  background: var(--accent);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  color: var(--fg);
+}
+.section-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* ========= HERO ========= */
+.hero {
+  padding: 0;
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #071a0e 0%, #0d2818 40%, #0a2212 100%);
+  z-index: 0;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220,38,38,0.08) 0%, transparent 70%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(0deg, #071a0e 0%, transparent 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 40px 24px 32px;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.2s forwards;
+}
+.hero-tag::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 6px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.3s forwards;
+}
+.hero h1 .highlight {
+  color: var(--gold);
+  font-style: italic;
+}
+.hero h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.3;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.4s forwards;
+}
+.hero p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 90%;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.5s forwards;
+}
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.6s forwards;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-primary:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(220,38,38,0.3);
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: transparent;
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.15);
+}
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: var(--gold);
+  color: #071a0e;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.btn-gold:hover {
+  background: #c49a3f;
+  transform: translateY(-1px);
+}
+.hero-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  opacity: 0;
+  animation: fadeUp 0.6s 0.7s forwards;
+}
+.hero-ribbon svg { color: var(--accent); flex-shrink: 0; }
+
+/* ========= STATS ========= */
+.stats {
+  padding: 28px 16px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.stat-card:hover {
+  border-color: var(--green-base);
+  transform: translateY(-2px);
+}
+.stat-card.featured {
+  background: linear-gradient(135deg, rgba(220,38,38,0.06), transparent);
+  border-color: rgba(220,38,38,0.15);
+  grid-column: 1 / -1;
+}
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.stat-card.featured .stat-number { color: var(--accent); }
+.stat-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.stat-detail {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* ========= ABOUT ========= */
+.about {
+  padding: 32px 20px;
+}
+.about-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.about-card:hover {
+  border-color: var(--green-base);
+  background: rgba(21,128,61,0.04);
+}
+.about-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(220,38,38,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+.about-icon svg { width: 20px; height: 20px; }
+.about-card h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.about-card p {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ========= PROGRAMS ========= */
+.programs {
+  padding: 32px 20px;
+}
+.programs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+.program-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.program-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.3s;
+}
+.program-card:hover::before { transform: scaleY(1); }
+.program-card:hover {
+  border-color: rgba(220,38,38,0.2);
+  background: rgba(220,38,38,0.03);
+}
+.program-num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  width: 28px;
+  text-align: center;
+  opacity: 0.6;
+}
+.program-info { flex: 1; }
+.program-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.program-info p {
+  font-size: 11.5px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.program-arrow {
+  color: var(--muted);
+  opacity: 0;
+  transition: all 0.3s;
+}
+.program-card:hover .program-arrow {
+  opacity: 1;
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* ========= NEWS ========= */
+.news {
+  padding: 32px 20px;
+}
+.news-featured {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.news-featured-img {
+  height: 160px;
+  background: linear-gradient(135deg, var(--green-light), var(--surface));
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+.news-featured-img .tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+}
+.news-date { font-size: 10px; color: var(--muted); font-weight: 500; margin-bottom: 4px; }
+.news-featured h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+  padding: 0 16px 12px;
+}
+.news-featured p {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+  padding: 0 16px 16px;
+}
+.news-featured .read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0 16px 16px;
+}
+.news-list { display: flex; flex-direction: column; gap: 8px; }
+.news-item {
+  display: flex;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  align-items: flex-start;
+}
+.news-item-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--green-pale);
+  border: 1px solid rgba(21,128,61,0.1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-base);
+}
+.news-item-icon svg { width: 18px; height: 18px; }
+.news-item .news-date { margin-bottom: 2px; }
+.news-item h4 {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.news-item .tag-sm {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* ========= RESEARCH CTA ========= */
+.research-cta {
+  margin: 0 20px 16px;
+  padding: 28px 24px;
+  background: linear-gradient(135deg, #0d2818, #0a1f12);
+  border: 1px solid rgba(21,128,61,0.2);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.research-cta::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.research-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: -40px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(220,38,38,0.06);
+}
+.research-cta .tag {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green-base);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.research-cta h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+.research-cta p {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.research-cta .btn-primary { width: 100%; justify-content: center; position: relative; z-index: 1; }
+
+/* ========= PARTNERS ========= */
+.partners {
+  padding: 28px 20px;
+}
+.partners-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+.partners-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+.partners-scroll::-webkit-scrollbar { display: none; }
+.partner-logo {
+  flex-shrink: 0;
+  width: 90px;
+  height: 52px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* ========= CONTACT / FOOTER ========= */
+.contact {
+  padding: 28px 20px;
+}
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.contact-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s;
+}
+.contact-card:hover {
+  border-color: var(--green-base);
+  transform: translateY(-1px);
+}
+.contact-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(220,38,38,0.1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.contact-card-icon svg { width: 20px; height: 20px; }
+.contact-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.contact-card p {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.contact-card .link {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer {
+  padding: 28px 20px 40px;
+  border-top: 1px solid var(--border);
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.footer-desc {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  max-width: 80%;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--fg); }
+.footer-copy {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* ========= Bottom Tab Nav ========= */
+.tab-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 200;
+  background: rgba(7,26,14,0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 6px 0 calc(6px + var(--safe-bottom));
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 12px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.tab-item:hover,
+.tab-item.active { color: var(--accent); }
+.tab-item svg { width: 22px; height: 22px; }
+.tab-item span { letter-spacing: 0.02em; }
+
+/* ========= Animations ========= */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========= Scrollbar polish ========= */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<div class="mobile-frame">
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span class="time">9:41</span>
+    <span class="status-icons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 9l4 4-4 4"/><path d="M7 5l4 4-4 4"/><path d="M13 9l4 4-4 4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M22 10v4"/></svg>
+      <svg viewBox="0 0 24 18" fill="currentColor"><rect x="14" y="1" width="8" height="16" rx="2"/><rect x="4" y="4" width="8" height="10" rx="1.5"/></svg>
+    </span>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark">KW</div>
+        <div class="logo-text">KWASACA<small>Kwara State AIDS Control</small></div>
+      </a>
+      <div class="header-actions">
+        <button aria-label="Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Kwara State Government</div>
+      <h1>Ending AIDS.<br><span class="highlight">Protecting</span><br>Every Life.</h1>
+      <h2>Kwara State Agency for Control of AIDS</h2>
+      <p>KWASACA coordinates Kwara State's comprehensive HIV/AIDS response — delivering prevention, treatment, research, and community support across all 16 local government areas.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+          Find Testing Center
+        </a>
+        <a href="#" class="btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Get Help Now
+        </a>
+      </div>
+      <div class="hero-ribbon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        UNAIDS 95-95-95 Targets · Ending AIDS by 2030
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <section class="stats reveal">
+    <div class="stats-grid">
+      <div class="stat-card featured">
+        <div class="stat-number" style="font-size:30px">0.4<span style="font-size:16px">%</span></div>
+        <div class="stat-label">HIV Prevalence — Kwara State</div>
+        <div class="stat-detail">↓ Below national average</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="16">0</div>
+        <div class="stat-label">LGAs Covered</div>
+        <div class="stat-detail">Statewide</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="500" data-suffix="K+">0</div>
+        <div class="stat-label">People Reached in 2024</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="8">0</div>
+        <div class="stat-label">International Partners</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="2003">0</div>
+        <div class="stat-label">Year Established</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about">
+    <div class="section-label reveal">About</div>
+    <div class="section-title reveal">The Apex Body for<br>Kwara's HIV Response</div>
+    <div class="section-sub reveal">KWASACA is the state-level coordinating agency for all HIV/AIDS activities in Kwara State, delivering a multisectoral response spanning prevention, treatment, research, and community engagement.</div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h3>Government-led Coordination</h3>
+          <p>Chaired by the Kwara State Deputy Governor, ensuring high-level political commitment and oversight.</p>
+        </div>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h3>International Partnerships</h3>
+          <p>PEPFAR, Global Fund, World Bank, UNAIDS, WHO — collaborating to strengthen Kwara's health systems.</p>
+        </div>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div>
+          <h3>Statewide LACA Network</h3>
+          <p>16 Local Action Committees across all LGAs ensuring grassroots reach and community ownership.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAMS ===== -->
+  <section class="programs">
+    <div class="section-label reveal">Programs</div>
+    <div class="section-title reveal">What We Do</div>
+    <div class="section-sub reveal">Six flagship programs spanning prevention, treatment, and community support across all 16 LGAs.</div>
+    <div class="programs-grid">
+      <div class="program-card reveal" onclick="alert('HIV Prevention & Awareness: Community sensitization, condom distribution, and mass awareness campaigns reaching every LGA. 500K+ reached annually, 200+ community sensitizers.')">
+        <div class="program-num">01</div>
+        <div class="program-info">
+          <h3>HIV Prevention &amp; Awareness</h3>
+          <p>Community sensitization, condom distribution, and mass awareness campaigns across all 16 LGAs</p>
+        </div>
+        <div class="program-arrow">→</div>
+      </div>
+      <div class="program-card reveal" onclick="alert('Treatment & ART: Antiretroviral therapy access, viral load monitoring, adherence support, and clinical care across government health facilities.')">
+        <div class="program-num">02</div>
+        <div class="program-info">
+          <h3>Treatment &amp; ART</h3>
+          <p>Antiretroviral therapy access, viral load monitoring, and adherence support at government facilities</p>
+        </div>
+        <div class="program-arrow">→</div>
+      </div>
+      <div class="program-card reveal" onclick="alert('PMTCT Program: Prevention of Mother-to-Child Transmission protecting newborns through antenatal care, HIV testing, and postnatal follow-up.')">
+        <div class="program-num">03</div>
+        <div class="program-info">
+          <h3>PMTCT Program</h3>
+          <p>Preventing Mother-to-Child Transmission through antenatal care and postnatal follow-up</p>
+        </div>
+        <div class="program-arrow">→</div>
+      </div>
+      <div class="program-card reveal" onclick="alert('Testing & Counseling: Free, confidential HIV testing at over 30 certified facilities with trained counselors across all 16 LGAs.')">
+        <div class="program-num">04</div>
+        <div class="program-info">
+          <h3>Testing &amp; Counseling</h3>
+          <p>Free, confidential HIV testing at 30+ certified facilities with trained counselors</p>
+        </div>
+        <div class="program-arrow">→</div>
+      </div>
+      <div class="program-card reveal" onclick="alert('OVC Support: Comprehensive care for Orphans and Vulnerable Children affected by HIV/AIDS: education support, nutrition, psychosocial care.')">
+        <div class="program-num">05</div>
+        <div class="program-info">
+          <h3>OVC Support</h3>
+          <p>Care for Orphans and Vulnerable Children — education, nutrition, psychosocial support</p>
+        </div>
+        <div class="program-arrow">→</div>
+      </div>
+      <div class="program-card reveal" onclick="alert('Community Outreach: Grassroots engagement through LACA committees, faith-based organizations, and trained community health volunteers.')">
+        <div class="program-num">06</div>
+        <div class="program-info">
+          <h3>Community Outreach</h3>
+          <p>Grassroots engagement through LACA committees and community health volunteers</p>
+        </div>
+        <div class="program-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWS ===== -->
+  <section class="news">
+    <div class="section-label reveal">Updates</div>
+    <div class="section-title reveal">Latest News &amp; Events</div>
+    <div class="news-featured reveal">
+      <div class="news-featured-img">
+        <span class="tag">Featured</span>
+        <span style="color:rgba(255,255,255,0.6); font-size:10px; font-weight:500;">20 June 2026 · Event</span>
+      </div>
+      <h3>Kwara SSP 2025-2027 — HIV Strategic Plan Launched</h3>
+      <p>A comprehensive framework reducing new infections, expanding testing, and improving quality of life for people living with HIV across Kwara State.</p>
+      <a href="#" class="read-more">Read more →</a>
+    </div>
+    <div class="news-list">
+      <div class="news-item reveal">
+        <div class="news-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div>
+          <div class="news-date">10 March 2025</div>
+          <h4>World AIDS Day 2025 Planning Meeting Convenes in Ilorin</h4>
+          <span class="tag-sm">Event</span>
+        </div>
+      </div>
+      <div class="news-item reveal">
+        <div class="news-item-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div>
+          <div class="news-date">28 February 2025</div>
+          <h4>2024 Annual HIV Situation Report Published — Download Now</h4>
+          <span class="tag-sm">Report</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESEARCH CTA ===== -->
+  <div class="research-cta reveal">
+    <div class="tag">For Researchers</div>
+    <h3>Submit Your HIV Research to KWASACA</h3>
+    <p>We welcome evidence-based HIV/AIDS research for official review, recommendation and endorsement to strengthen Kwara's HIV response.</p>
+    <a href="#" class="btn-primary">
+      Open Submission Portal
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <!-- ===== PARTNERS ===== -->
+  <section class="partners reveal">
+    <div class="partners-label">Our Partners &amp; Funding Organizations</div>
+    <div class="partners-scroll">
+      <div class="partner-logo">NACA</div>
+      <div class="partner-logo">UNAIDS</div>
+      <div class="partner-logo">PEPFAR</div>
+      <div class="partner-logo">Global Fund</div>
+      <div class="partner-logo">World Bank</div>
+      <div class="partner-logo">SFH Nigeria</div>
+      <div class="partner-logo">WHO</div>
+      <div class="partner-logo">UNICEF</div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact">
+    <div class="section-label reveal">Contact</div>
+    <div class="contact-grid">
+      <a href="#" class="contact-card reveal">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <h4>General Enquiries</h4>
+          <p>Reach our team for questions about programs, partnerships, or general information.</p>
+          <span class="link">Send a message →</span>
+        </div>
+      </a>
+      <a href="#" class="contact-card reveal">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <h4>File a Complaint</h4>
+          <p>Concerns about HIV services, staff conduct, or program delivery? Submit confidentially.</p>
+          <span class="link">File complaint →</span>
+        </div>
+      </a>
+      <a href="#" class="contact-card reveal">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h4>Partner With Us</h4>
+          <p>NGOs, CSOs, faith-based organizations and donors — explore collaboration opportunities.</p>
+          <span class="link">Get involved →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <div class="footer-logo">KWASACA</div>
+    <div class="footer-desc">Kwara State Agency for Control of AIDS — An Agency of the Kwara State Government of Nigeria.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Sitemap</a>
+    </div>
+    <div class="footer-copy">© 2026 KWASACA — All rights reserved. Kwara State Government of Nigeria.</div>
+  </div>
+
+  <!-- ===== Tab Bar ===== -->
+  <nav class="tab-bar">
+    <a href="#" class="tab-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="#" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+      <span>About</span>
+    </a>
+    <a href="#" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span>Programs</span>
+    </a>
+    <a href="#" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>News</span>
+    </a>
+    <a href="#" class="tab-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+</div>
+
+<script>
+// Scroll reveal
+(function() {
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) { obs.observe(el); });
+  } else {
+    els.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+
+// Animated counters (only elements with data-count attribute)
+(function() {
+  var counters = document.querySelectorAll('.stat-number[data-count]');
+  var observed = new WeakSet();
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && !observed.has(e.target)) {
+          observed.add(e.target);
+          animateCounter(e.target);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(el) { obs.observe(el); });
+  } else {
+    counters.forEach(function(el) { animateCounter(el); });
+  }
+
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-count')) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var isDecimal = target % 1 !== 0;
+    var duration = 1200;
+    var start = performance.now();
+
+    function tick(now) {
+      var t = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      var val = eased * target;
+      el.textContent = isDecimal ? val.toFixed(1) : Math.round(val);
+      if (suffix) el.textContent += suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import Chatbot from '@/components/layout/Chatbot'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 import { createClient } from '@/utils/supabase/server'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -30,10 +31,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body>
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){try{var t=localStorage.getItem("mobile-theme");if(t==="light")document.body.classList.add("light-theme")}catch(e){}})()`
+        }} />
         <Navbar isAdmin={isAdmin} />
         <main>{children}</main>
         <Footer />
         <Chatbot />
+        <ThemeToggle />
         <Analytics />
       </body>
     </html>

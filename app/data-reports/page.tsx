@@ -70,16 +70,16 @@ export default async function DataReportsPage() {
           <div className="space-y-4">
             {reports.map((r: any) => (
               <div key={r._id}
-                className="bg-white border border-gray-200 rounded-2xl p-6 flex items-center gap-6 hover:border-green-light hover:shadow-md transition-all group">
+                className="bg-white border border-gray-200 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 hover:border-green-light hover:shadow-md transition-all group">
                 <div className="w-14 h-14 bg-green-pale border border-green-light rounded-xl flex items-center justify-center flex-shrink-0">
                   <FileText size={22} className="text-green-DEFAULT" />
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 w-full">
                   <div className="flex items-center gap-3 mb-1">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-green-mid bg-green-light px-2 py-0.5 rounded">{r.category}</span>
                     <span className="text-[11px] text-gray-400">{r.year}</span>
                   </div>
-                  <h3 className="text-[15px] font-semibold text-ink mb-1 group-hover:text-green-DEFAULT transition-colors truncate">{r.title}</h3>
+                  <h3 className="text-[15px] font-semibold text-ink mb-1 group-hover:text-green-DEFAULT transition-colors sm:truncate">{r.title}</h3>
                   <p className="text-sm text-gray-400 font-light">{r.description}</p>
                 </div>
                 <a href={r.fileUrl || '#'}
