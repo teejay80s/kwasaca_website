@@ -1,14 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/lib/supabase'
 
 export async function POST(req: NextRequest) {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
   try {
     const formData = await req.formData()
     const file = formData.get('file') as File | null
@@ -21,10 +14,8 @@ export async function POST(req: NextRequest) {
     const buffer = new Uint8Array(bytes)
     const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_')
     const fileName = Date.now() + '-' + safeName
-    const { id: userId } = user
-    const filePath = userId + '/' + fileName
+    const filePath = 'public/' + fileName
 
-    const { createAdminClient } = await import('@/lib/supabase')
     const admin = createAdminClient()
 
     const { error: uploadError } = await admin.storage

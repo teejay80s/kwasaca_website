@@ -119,12 +119,25 @@ CREATE INDEX IF NOT EXISTS idx_contact_created   ON contact_messages(created_at 
 
 -- ─── Supabase Storage bucket for research PDFs ────────────────
 INSERT INTO storage.buckets (id, name, public)
-  VALUES ('research-files', 'research-files', false)
-  ON CONFLICT (id) DO NOTHING;
+  VALUES ('research-files', 'research-files', true)
+  ON CONFLICT (id) DO UPDATE SET public = true;
 
-CREATE POLICY "authenticated_upload_research"
+-- Allow anyone (anon) to upload files
+CREATE POLICY "public_upload_research"
   ON storage.objects FOR INSERT TO anon
   WITH CHECK (bucket_id = 'research-files');
+
+-- Allow anyone (anon) to download files
+CREATE POLICY "public_download_research"
+  ON storage.objects FOR SELECT TO anon
+  USING (bucket_id = 'research-files');
+
+/* ── If you already created the bucket as private, run this in SQL Editor:
+UPDATE storage.buckets SET public = true WHERE id = 'research-files';
+CREATE POLICY IF NOT EXISTS "public_download_research"
+  ON storage.objects FOR SELECT TO anon
+  USING (bucket_id = 'research-files');
+*/
 
 -- ══════════════════════════════════════════════════════════════
 -- DONE! Your database is ready.
