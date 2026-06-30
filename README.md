@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <strong>Kwara State Agency for Control of AIDS (KWASACA)</strong><br>
+  <strong>Kwara State AIDS Control Agency (KWASACA)</strong><br>
   Coordinating HIV/AIDS response across all 16 LGAs of Kwara State, Nigeria.
 </p>
 
@@ -57,7 +57,7 @@
 
 ## 🏥 About KWASACA
 
-**KWASACA** (Kwara State Agency for Control of AIDS) is the apex state body responsible for coordinating, monitoring, and evaluating HIV/AIDS response activities across Kwara State, Nigeria.
+**KWASACA** (Kwara State AIDS Control Agency) is the apex state body responsible for coordinating, monitoring, and evaluating HIV/AIDS response activities across Kwara State, Nigeria.
 
 | Attribute | Value |
 |-----------|-------|
@@ -1254,13 +1254,13 @@ try {
 ## 📄 License
 
 This project is open source.  
-All rights to the KWASACA brand, name, and official content belong to the **Kwara State Agency for Control of AIDS**.
+All rights to the KWASACA brand, name, and official content belong to the **Kwara State AIDS Control Agency**.
 
 ---
 
 ## 📬 Contact
 
-**KWASACA — Kwara State Agency for Control of AIDS**  
+**KWASACA — Kwara State AIDS Control Agency**  
 Ilorin, Kwara State, Nigeria  
 Website: [kwasaca.kw.gov.ng](https://kwasaca.kw.gov.ng)
 

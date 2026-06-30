@@ -44,7 +44,7 @@ export default function Footer() {
             </div>
 
             <div className="text-xs text-white/35 mb-5 tracking-wide uppercase">
-              Kwara State Agency for Control of AIDS
+              Kwara State AIDS Control Agency
             </div>
             <p className="text-[14px] text-white/45 leading-[1.8] font-light max-w-[320px]">
               The apex coordinating body for HIV/AIDS response in Kwara State,

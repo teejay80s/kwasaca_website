@@ -10,7 +10,7 @@ const sections: KnowledgeSection[] = [
     id: 'about-kwasaca',
     title: 'About KWASACA',
     keywords: ['KWASACA', 'agency', 'about', 'Kwara', 'HIV', 'AIDS', 'state', 'government', 'control', 'apex', 'body'],
-    content: `KWASACA (Kwara State Agency for Control of AIDS) is the apex state body coordinating HIV/AIDS response in Kwara State, Nigeria.
+    content: `KWASACA (Kwara State AIDS Control Agency) is the apex state body coordinating HIV/AIDS response in Kwara State, Nigeria.
 - Established to lead, coordinate, and monitor HIV/AIDS activities across the state
 - Supervised by the Kwara State Deputy Governor
 - Covers all 16 Local Government Areas (LGAs) of Kwara State

@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Download } from 'lucide-react'
+import { Download, X, ExternalLink } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import LoadingSpinner from '@/components/ui/LoadingSpinner'
 import type { ResearchSubmission } from '@/lib/supabase'
@@ -18,6 +18,8 @@ export default function AdminResearchPage() {
   const [loading, setLoading] = useState(true)
   const [updating, setUpdating] = useState<string | null>(null)
   const [error, setError] = useState('')
+  const [selected, setSelected] = useState<ResearchSubmission | null>(null)
+  const [adminNotes, setAdminNotes] = useState('')
 
   useEffect(() => {
     fetch('/api/admin/research')
@@ -31,12 +33,17 @@ export default function AdminResearchPage() {
     const res = await fetch('/api/admin/research', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, status }),
+      body: JSON.stringify({ id, status, admin_notes: adminNotes }),
     })
     if (res.ok) {
-      setSubmissions(prev => prev.map(s => s.id === id ? { ...s, status: status as ResearchSubmission['status'] } : s))
+      setSubmissions(prev => prev.map(s => s.id === id ? { ...s, status: status as ResearchSubmission['status'], admin_notes: adminNotes } : s))
     }
     setUpdating(null)
+  }
+
+  function openReview(s: ResearchSubmission) {
+    setSelected(s)
+    setAdminNotes(s.admin_notes || '')
   }
 
   if (loading) {
@@ -111,7 +118,7 @@ export default function AdminResearchPage() {
                       {updating === s.id ? (
                         <span className="text-xs text-gray-400">Updating...</span>
                       ) : (
-                        <span className="text-xs font-semibold text-green-DEFAULT cursor-pointer hover:underline">Review</span>
+                        <button onClick={() => openReview(s)} className="text-xs font-semibold text-green-DEFAULT hover:underline bg-transparent border-0 cursor-pointer">Review</button>
                       )}
                     </td>
                   </tr>
@@ -121,6 +128,107 @@ export default function AdminResearchPage() {
           </div>
         </div>
       </div>
+
+      {/* Review Modal */}
+      {selected && (
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-10 pb-10 bg-black/40 backdrop-blur-sm overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-2xl w-full mx-4 shadow-2xl">
+            <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100">
+              <h2 className="font-serif text-xl font-semibold text-ink">Review Submission</h2>
+              <button onClick={() => setSelected(null)} className="text-gray-400 hover:text-ink bg-transparent border-0 cursor-pointer p-1">
+                <X size={20} />
+              </button>
+            </div>
+            <div className="px-8 py-6 space-y-5">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-gray-400 mb-1">Reference ID</p>
+                  <p className="font-mono text-sm font-bold text-green-DEFAULT">{selected.reference_id}</p>
+                </div>
+                <span className={"text-[10px] px-2 py-1 rounded font-semibold uppercase whitespace-nowrap " + (statusColor[selected.status] || 'bg-gray-100 text-gray-400')}>{selected.status}</span>
+              </div>
+
+              <hr className="border-gray-100" />
+
+              <div className="grid grid-cols-2 gap-5">
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Title</p>
+                  <p className="text-sm font-medium text-ink">{selected.title}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Category</p>
+                  <span className="text-[10px] bg-green-pale text-green-mid px-2 py-0.5 rounded font-semibold uppercase">{selected.category}</span>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Author</p>
+                  <p className="text-sm text-ink">{selected.author_name}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Institution</p>
+                  <p className="text-sm text-ink">{selected.institution}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Email</p>
+                  <p className="text-sm text-ink">{selected.email}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Submitted</p>
+                  <p className="text-sm text-ink">{selected.created_at ? formatDate(selected.created_at) : String.fromCharCode(8212)}</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Abstract</p>
+                <p className="text-sm text-gray-600 leading-relaxed bg-gray-50 rounded-xl p-4">{selected.abstract}</p>
+              </div>
+
+              <div className="flex items-center gap-4">
+                {selected.file_url ? (
+                  <a href={selected.file_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-green-DEFAULT border-2 border-green-DEFAULT px-4 py-2 rounded-lg hover:bg-green-DEFAULT hover:text-white transition-all">
+                    <Download size={15} /> Download Document
+                  </a>
+                ) : (
+                  <span className="text-sm text-gray-400 italic">No file attached</span>
+                )}
+              </div>
+
+              <hr className="border-gray-100" />
+
+              <div>
+                <p className="text-xs text-gray-400 mb-2">Admin Notes</p>
+                <textarea
+                  value={adminNotes}
+                  onChange={(e) => setAdminNotes(e.target.value)}
+                  rows={3}
+                  className="w-full border border-gray-200 rounded-xl p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-DEFAULT/20 focus:border-green-DEFAULT"
+                  placeholder="Add internal notes..."
+                />
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-gray-400">Status:</span>
+                  <select
+                    value={selected.status}
+                    onChange={(e) => {
+                      const newStatus = e.target.value
+                      setSelected({ ...selected, status: newStatus as ResearchSubmission['status'] })
+                      updateStatus(selected.id, newStatus)
+                    }}
+                    className={"text-[10px] px-2 py-1 rounded font-semibold uppercase border-0 cursor-pointer " + (statusColor[selected.status] || 'bg-gray-100 text-gray-400')}
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="under_review">Under Review</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+                <button onClick={() => setSelected(null)} className="text-sm font-semibold text-green-DEFAULT hover:underline bg-transparent border-0 cursor-pointer">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

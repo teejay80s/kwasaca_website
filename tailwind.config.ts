@@ -33,6 +33,7 @@ const config: Config = {
         'fade-up':   'fadeUp 0.6s ease both',
         'blink':     'blink 2.5s infinite',
         'pop-up':    'popUp 0.25s ease',
+        'scroll':    'scroll 40s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -46,6 +47,10 @@ const config: Config = {
         popUp: {
           from: { opacity: '0', transform: 'translateY(10px) scale(0.97)' },
           to:   { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        scroll: {
+          '0%':   { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

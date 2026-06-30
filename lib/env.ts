@@ -9,7 +9,7 @@ const envSchema = z.object({
   SANITY_PROJECT_ID: z.string().min(1),
   SANITY_DATASET: z.string().min(1),
   SANITY_API_TOKEN: z.string().min(1),
-  ANTHROPIC_API_KEY: z.string().startsWith('sk-ant-'),
+  GROQ_API_KEY: z.string().min(1),
   RESEND_API_KEY: z.string().min(1),
   SANITY_WEBHOOK_SECRET: z.string().optional(),
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),

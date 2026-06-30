@@ -584,23 +584,27 @@ export default async function HomePage({
           {/* Mobile version */}
           <div className="sm:hidden">
             <div className="partners-label-mobile reveal">{tr.partners.title as string}</div>
-            <div className="partners-scroll-mobile">
-              {partners.map((p) => (
-                <div key={p.name} className="partner-logo-mobile">
-                  <img src={p.logo} alt={p.name} className="max-w-full max-h-full w-auto h-auto object-contain" style={{ opacity: 0.7 }} />
-                </div>
-              ))}
+            <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent)' }}>
+              <div className="flex gap-3 w-max animate-scroll">
+                {[...partners, ...partners].map((p, i) => (
+                  <div key={`${p.name}-${i}`} className="w-[110px] h-[60px] flex items-center justify-center p-2 flex-shrink-0">
+                    <img src={p.logo} alt={p.name} className="max-w-full max-h-full object-contain" style={{ mixBlendMode: 'multiply', opacity: 0.85 }} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           {/* Desktop version */}
           <div className="max-sm:hidden">
             <p className="text-center text-[11px] font-semibold text-gray-400 uppercase tracking-[0.12em] mb-10">{tr.partners.title as string}</p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              {partners.map((p) => (
-                <div key={p.name} className="w-[130px] h-[64px] flex items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:border-green-base hover:shadow-sm transition-all">
-                  <img src={p.logo} alt={p.name} className="max-w-full max-h-full w-auto h-auto object-contain" style={{ mixBlendMode: 'multiply' }} />
-                </div>
-              ))}
+            <div className="relative overflow-hidden" style={{ maskImage: 'linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent)' }}>
+              <div className="flex gap-6 w-max animate-scroll">
+                {[...partners, ...partners].map((p, i) => (
+                  <div key={`${p.name}-${i}`} className="w-[150px] h-[80px] flex items-center justify-center p-3 flex-shrink-0">
+                    <img src={p.logo} alt={p.name} className="max-w-full max-h-full object-contain" style={{ mixBlendMode: 'multiply' }} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

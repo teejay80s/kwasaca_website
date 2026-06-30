@@ -43,7 +43,7 @@ export default function AboutPage() {
           </div>
           <h1 className="font-serif text-[clamp(36px,5vw,64px)] font-semibold text-white leading-tight mb-4">About KWASACA</h1>
           <p className="text-base text-white/60 max-w-[540px] leading-[1.75] font-light">
-            The Kwara State Agency for Control of AIDS — coordinating the state's multisectoral HIV/AIDS response since 2003.
+            The Kwara State AIDS Control Agency — coordinating the state's multisectoral HIV/AIDS response since 2003.
           </p>
         </div>
       </div>

@@ -38,7 +38,7 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
           <div className="topbar-left">
             <span className="topbar-dot" />
             <span>
-              Official Website of Kwara State Agency for Control of AIDS
+              Official Website of Kwara State AIDS Control Agency
               (KWASACA)
             </span>
           </div>
@@ -77,7 +77,7 @@ export default function Navbar({ isAdmin }: { isAdmin?: boolean }) {
             <div className="brand-text-wrap">
               <strong className="brand-name">KWASACA</strong>
               <span className="brand-sub">
-                Kwara State Agency for Control of AIDS
+                Kwara State AIDS Control Agency
               </span>
             </div>
           </Link>

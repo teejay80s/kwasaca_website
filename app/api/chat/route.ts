@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { anthropic, buildSystemPrompt } from '@/lib/anthropic'
+import { getGroq, buildMessages } from '@/lib/groq'
 import { getRelevantContext } from '@/lib/knowledge-base'
 
 export async function POST(req: NextRequest) {
@@ -11,34 +11,36 @@ export async function POST(req: NextRequest) {
 
     const lastUserMsg = messages.filter((m: any) => m.role === 'user').pop()?.content || ''
     const context = getRelevantContext(lastUserMsg)
-    const systemPrompt = buildSystemPrompt(context)
+    const systemMessages = buildMessages(context)
 
-    const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1024,
-      system: systemPrompt,
-      messages: messages.map((m: any) => ({
-        role: m.role,
+    const chatMessages: { role: 'system' | 'user' | 'assistant'; content: string }[] = [
+      ...systemMessages,
+      ...messages.map((m: any) => ({
+        role: m.role as 'user' | 'assistant',
         content: m.content,
       })),
+    ]
+
+    const response = await getGroq().chat.completions.create({
+      model: 'llama-3.3-70b-versatile',
+      messages: chatMessages,
+      max_tokens: 1024,
     })
 
-    const message = response.content[0].type === 'text'
-      ? response.content[0].text
-      : 'I apologize, I could not generate a response. Please try again.'
+    const message = response.choices[0]?.message?.content || 'I apologize, I could not generate a response. Please try again.'
 
     return NextResponse.json({ message })
   } catch (error: any) {
     console.error('Chat API error:', error)
 
-    if (error?.status === 401 || error?.message?.includes('401')) {
+    if (error?.status === 401 || error?.message?.includes('401') || error?.message?.includes('API key')) {
       return NextResponse.json(
         { error: 'AI service configuration error. Please contact the site administrator.' },
         { status: 500 }
       )
     }
 
-    if (error?.status === 429 || error?.message?.includes('429')) {
+    if (error?.status === 429 || error?.message?.includes('429') || error?.message?.includes('quota') || error?.message?.includes('rate limit')) {
       return NextResponse.json(
         { error: 'AI service is temporarily busy. Please try again shortly.' },
         { status: 500 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ResearchForm from '@/components/forms/ResearchForm'
+import TrackSubmission from '@/components/forms/TrackSubmission'
 import { CheckCircle, Clock, Award, BookOpen } from 'lucide-react'
 
 export const metadata: Metadata = { title: 'Research Submission Portal' }
@@ -98,14 +99,7 @@ export default function ResearchPage() {
               </div>
             </div>
 
-            <div className="bg-green-pale border border-green-light rounded-2xl p-7">
-              <h3 className="font-semibold text-ink mb-2">Track Your Submission</h3>
-              <p className="text-sm text-gray-500 font-light mb-4">Already submitted? Use your reference ID to check status.</p>
-              <div className="flex gap-2">
-                <input className="input-field flex-1" placeholder="Enter reference ID" />
-                <button className="btn-green px-4 py-2.5 text-sm whitespace-nowrap rounded-lg">Check</button>
-              </div>
-            </div>
+            <TrackSubmission />
           </div>
         </div>
       </section>

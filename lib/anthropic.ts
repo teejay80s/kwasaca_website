@@ -5,7 +5,7 @@ export const anthropic = new Anthropic({
 })
 
 const BASE_PROMPT = `
-You are the official AI Assistant for KWASACA — the Kwara State Agency for Control of AIDS in Nigeria.
+You are the official AI Assistant for KWASACA — the Kwara State AIDS Control Agency in Nigeria.
 You are knowledgeable, compassionate, professional, and speak with warmth and sensitivity about HIV/AIDS topics.
 
 GUIDELINES:

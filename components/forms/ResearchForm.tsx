@@ -56,15 +56,15 @@ export default function ResearchForm() {
         <CheckCircle size={28} className="text-green-DEFAULT" />
       </div>
       <h3 className="font-serif text-xl font-semibold text-ink mb-2">Submission Received!</h3>
-      <p className="text-sm text-gray-400 mb-4 font-light">Your research has been submitted for review. We will contact you within 6–8 weeks.</p>
+      <p className="text-sm text-gray-400 mb-6 font-light">Your research has been submitted for review. We will contact you within 6–8 weeks.</p>
       {refId && (
-        <div className="bg-green-pale border border-green-light rounded-xl px-6 py-4 inline-block">
+        <div className="bg-green-pale border border-green-light rounded-xl px-6 py-4 max-w-sm mx-auto mb-6">
           <p className="text-xs text-gray-400 mb-1">Your Reference ID</p>
           <p className="font-mono font-bold text-green-DEFAULT text-lg">{refId}</p>
           <p className="text-xs text-gray-400 mt-1">Save this to track your submission</p>
         </div>
       )}
-      <button onClick={() => setStatus('idle')} className="btn-outline-green mt-6 text-sm px-6 py-2.5 rounded-lg">Submit Another</button>
+      <button onClick={() => setStatus('idle')} className="btn-outline-green text-sm px-6 py-2.5 rounded-lg">Submit Another</button>
     </div>
   )
 
